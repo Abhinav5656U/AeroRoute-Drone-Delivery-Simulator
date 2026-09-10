@@ -1,10 +1,11 @@
 #include "core/CityGrid.h"
 #include <cstring>
 #include <cstdio>
+#include <iostream>
 
-// ─────────────────────────────────────────────────────────────
+
 // Constructor — zero-initialise the array
-// ─────────────────────────────────────────────────────────────
+
 CityGrid::CityGrid() : count(0), nextId(0) {
     for (int i = 0; i < MAX_NODES; i++) {
         nodes[i].isActive = false;
@@ -12,9 +13,8 @@ CityGrid::CityGrid() : count(0), nextId(0) {
     }
 }
 
-// ─────────────────────────────────────────────────────────────
 // Private helper — scan active nodes for matching ID
-// ─────────────────────────────────────────────────────────────
+
 int CityGrid::findIndexById(int id) const {
     for (int i = 0; i < MAX_NODES; i++) {
         if (nodes[i].isActive && nodes[i].id == id)
@@ -23,9 +23,9 @@ int CityGrid::findIndexById(int id) const {
     return -1;
 }
 
-// ─────────────────────────────────────────────────────────────
+
 // INSERT — add a new city node into the array
-// ─────────────────────────────────────────────────────────────
+
 bool CityGrid::insertNode(const char* name, float x, float y, NodeType type) {
     if (isFull()) {
         std::cout << "[CityGrid] ERROR: Array is full. Cannot insert.\n";
@@ -51,9 +51,9 @@ bool CityGrid::insertNode(const char* name, float x, float y, NodeType type) {
     return false;
 }
 
-// ─────────────────────────────────────────────────────────────
+
 // DELETE — logical delete (mark isActive = false)
-// ─────────────────────────────────────────────────────────────
+
 bool CityGrid::deleteNode(int id) {
     int idx = findIndexById(id);
     if (idx == -1) {
@@ -67,9 +67,9 @@ bool CityGrid::deleteNode(int id) {
     return true;
 }
 
-// ─────────────────────────────────────────────────────────────
+
 // UPDATE — change coordinates of an existing node
-// ─────────────────────────────────────────────────────────────
+
 bool CityGrid::updateNode(int id, float newX, float newY) {
     int idx = findIndexById(id);
     if (idx == -1) {
@@ -83,9 +83,9 @@ bool CityGrid::updateNode(int id, float newX, float newY) {
     return true;
 }
 
-// ─────────────────────────────────────────────────────────────
+
 // SEARCH — linear search by name, returns ID
-// ─────────────────────────────────────────────────────────────
+
 int CityGrid::searchByName(const char* name) const {
     for (int i = 0; i < MAX_NODES; i++) {
         if (nodes[i].isActive &&
@@ -100,9 +100,8 @@ int CityGrid::searchByName(const char* name) const {
     return -1;
 }
 
-// ─────────────────────────────────────────────────────────────
+
 // DISPLAY — print a single node
-// ─────────────────────────────────────────────────────────────
 void CityGrid::displayNode(int id) const {
     int idx = findIndexById(id);
     if (idx == -1) {
@@ -115,9 +114,8 @@ void CityGrid::displayNode(int id) const {
            n.id, n.name, n.x, n.y, types[n.type]);
 }
 
-// ─────────────────────────────────────────────────────────────
+
 // DISPLAY ALL — iterate array and print every active node
-// ─────────────────────────────────────────────────────────────
 void CityGrid::displayAll() const {
     std::cout << "\n════════════════════════════════════════\n";
     std::cout << "  AeroRoute City Map  (" << count << " nodes)\n";
@@ -136,18 +134,18 @@ void CityGrid::displayAll() const {
     std::cout << "════════════════════════════════════════\n\n";
 }
 
-// ─────────────────────────────────────────────────────────────
+
 // GET NODE — const pointer for read-only access
-// ─────────────────────────────────────────────────────────────
+
 const CityNode* CityGrid::getNode(int id) const {
     int idx = findIndexById(id);
     if (idx == -1) return nullptr;
     return &nodes[idx];
 }
 
-// ─────────────────────────────────────────────────────────────
+
 // LOAD SAMPLE CITY — pre-populate for demo
-// ─────────────────────────────────────────────────────────────
+
 void CityGrid::loadSampleCity() {
     insertNode("Warehouse_Central",  0.0f,  0.0f, WAREHOUSE);
     insertNode("Customer_A",         5.0f,  3.0f, CUSTOMER);

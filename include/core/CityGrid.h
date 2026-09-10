@@ -1,15 +1,11 @@
 #ifndef CITY_GRID_H
 #define CITY_GRID_H
 
-#include <string>
-#include <iostream>
-
-// ─────────────────────────────────────────────────────────────
 // AeroRoute — Task 1 (PL / CO1): Arrays
 // City nodes stored in a fixed-size array.
 // Demonstrates: insert, delete, update, search, display
 // Team Member: Abhinav Kumar (202501090028)
-// ─────────────────────────────────────────────────────────────
+
 
 #define MAX_NODES     50
 #define MAX_NAME_LEN  30
@@ -31,9 +27,8 @@ struct CityNode {
     bool   isActive;      // false = logically deleted
 };
 
-// ─────────────────────────────────────────────────────────────
 // CityGrid — array-based city map
-// ─────────────────────────────────────────────────────────────
+
 class CityGrid {
 private:
     CityNode nodes[MAX_NODES];   // fixed-size array (CO1)

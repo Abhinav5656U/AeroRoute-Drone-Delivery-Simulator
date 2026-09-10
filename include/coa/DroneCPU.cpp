@@ -2,9 +2,7 @@
 #include <cmath>
 #include <cstdio>
 
-// ═════════════════════════════════════════════════════════════
 // Registers
-// ═════════════════════════════════════════════════════════════
 Registers::Registers() {
     reset();
 }
@@ -27,9 +25,7 @@ void Registers::display() const {
     printf("  └────────────────────────────────────────┘\n\n");
 }
 
-// ═════════════════════════════════════════════════════════════
 // ALU
-// ═════════════════════════════════════════════════════════════
 int32_t ALU::ADD(int32_t a, int32_t b) {
     int32_t result = a + b;
     zeroFlag     = (result == 0);
@@ -89,9 +85,7 @@ void ALU::displayFlags() const {
            zeroFlag, negativeFlag, overflowFlag);
 }
 
-// ═════════════════════════════════════════════════════════════
 // DroneCPU
-// ═════════════════════════════════════════════════════════════
 DroneCPU::DroneCPU()
     : iMemCount(0), halted(false), cycleCount(0) {}
 
