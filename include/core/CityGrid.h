@@ -1,13 +1,11 @@
 #ifndef CITY_GRID_H
 #define CITY_GRID_H
 
-// AeroRoute — Task 1 (PL / CO1): Arrays
-// City nodes stored in a fixed-size array.
+// AeroRoute — Task 2 (PL / CO2): Singly Linked List
+// City nodes stored using a dynamically allocated singly linked list.
 // Demonstrates: insert, delete, update, search, display
 // Team Member: Abhinav Kumar (202501090028)
 
-
-#define MAX_NODES     50
 #define MAX_NAME_LEN  30
 
 // Node types in the city
@@ -18,30 +16,31 @@ enum NodeType {
     JUNCTION
 };
 
-// A single city location (node)
+// A single city location — now a singly linked-list node
 struct CityNode {
-    int    id;
-    char   name[MAX_NAME_LEN];
-    float  x, y;          // 2D coordinates on the city map
-    NodeType type;
-    bool   isActive;      // false = logically deleted
+    int       id;
+    char      name[MAX_NAME_LEN];
+    float     x, y;          // 2D coordinates on the city map
+    NodeType  type;
+    CityNode* next;          // pointer to the next node in the list
 };
 
-// CityGrid — array-based city map
+// CityGrid — singly linked-list based city map
 
 class CityGrid {
 private:
-    CityNode nodes[MAX_NODES];   // fixed-size array (CO1)
-    int      count;              // current number of nodes
-    int      nextId;             // auto-increment ID
+    CityNode* head;      // pointer to the first node in the list
+    int       count;     // current number of nodes
+    int       nextId;    // auto-increment ID
 
-    // Helper: find index by ID (-1 if not found)
-    int findIndexById(int id) const;
+    // Helper: find node pointer by ID (nullptr if not found)
+    CityNode* findNodeById(int id) const;
 
 public:
     CityGrid();
+    ~CityGrid();   // destructor — traverses list and frees every node
 
-    // Core array operations required by Task 1
+    // Core linked-list operations required by Task 2
     bool insertNode(const char* name, float x, float y, NodeType type);
     bool deleteNode(int id);
     bool updateNode(int id, float newX, float newY);
@@ -50,8 +49,7 @@ public:
     void displayNode(int id) const;
 
     // Utility
-    int  getCount()    const { return count; }
-    bool isFull()      const { return count >= MAX_NODES; }
+    int  getCount() const { return count; }
     const CityNode* getNode(int id) const;
 
     // Load default city for demo
@@ -59,4 +57,3 @@ public:
 };
 
 #endif // CITY_GRID_H
-
